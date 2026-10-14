@@ -1,2 +1,5 @@
 *dataset/
 *.venv
+*.pth
+*.pt
+modelos_guardados/
