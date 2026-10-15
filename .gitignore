@@ -15,8 +15,8 @@ modelos_guardados/
 !app/models/*/model.pt
 
 # ── Resultados regenerables ────────────────────────────
-# Copia del notebook que se guarda en cada resultados/yolo11/testN/
-yolo11_copia.ipynb
+# Copia del notebook que se guarda en cada resultados/<modelo>/testN/
+*_copia.ipynb
 # Carpeta por defecto de Ultralytics (si se entrena sin indicar "project")
 runs/
 

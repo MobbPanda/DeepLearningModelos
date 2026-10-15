@@ -52,15 +52,19 @@ models/
 - Para que aparezca un modelo nuevo basta con recargar la página. Si se reemplaza el `model.pt` de una carpeta, también se vuelve a cargar solo.
 - Mientras no haya ningún modelo, la aplicación funciona en **modo demo**, con predicciones aleatorias sobre las clases de `classes.json`.
 
-### Agregar una prueba de YOLO11
+### Agregar una prueba
 
 Desde `DeepLearningModelos/`:
 
 ```bash
-python exportar_modelo.py test3
+python exportar_modelo.py test3            # YOLO11
+python exportar_modelo.py resnet50 test1   # ResNet-50
 ```
 
-Esto copia `resultados/yolo11/test3/weights/best.pt` a `models/yolo11m-cls_test3/` junto con sus clases y métricas. El notebook hace lo mismo con `EXPORTAR_A_APP = True`.
+- **YOLO11:** copia `resultados/yolo11/test3/weights/best.pt` a `models/yolo11m-cls_test3/` junto con sus clases y métricas (`"tipo": "ultralytics"`).
+- **ResNet-50:** guarda el modelo completo de `resultados/resnet50/test1/weights/best.pt` en `models/resnet50_test1/` con `"tipo": "torch"`, en media precisión (~47 MB en vez de ~94 MB). Su `modelo.json` incluye el recorte central y la normalización de ImageNet, y la app lo vuelve a float32 al cargarlo.
+
+Los notebooks hacen lo mismo con `EXPORTAR_A_APP = True`.
 
 ### Formato de `modelo.json`
 
@@ -96,4 +100,5 @@ Con `"tipo": "ultralytics"`, el preprocesamiento lo hace Ultralytics con su tran
 | `config.py` | Parámetros generales (carpeta de modelos, umbral, Top-K, dispositivo). |
 | `classes.json` | Clases del modo demo (las 42 del dataset). |
 | `models/` | Un subdirectorio por modelo. |
+| `.streamlit/config.toml` | Tema visual: siempre claro, con fondo gris claro (se lee al ejecutar `streamlit run` desde `app/`). |
 | `WEBAPP_SPEC.md` | Especificación técnica de la aplicación. |

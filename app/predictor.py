@@ -228,6 +228,10 @@ def _load_torch_model(path: Path, device: str):
         )
     if not callable(model):
         raise PredictorError(f"El archivo {path.name} no contiene un modelo válido.")
+    if isinstance(model, torch.nn.Module):
+        # Los pesos pueden venir en media precisión para que el archivo pese la mitad;
+        # la inferencia se hace en float32
+        model.float()
     model.eval()
     return model
 

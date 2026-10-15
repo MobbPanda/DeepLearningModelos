@@ -1,0 +1,12 @@
+# Tema visual de la aplicación: siempre claro, con fondo gris claro.
+# Streamlit lee este archivo desde la carpeta donde se ejecuta "streamlit run" (app/).
+
+[theme]
+base = "light"                        # claro aunque el sistema operativo esté en modo oscuro
+backgroundColor = "#F0F2F6"           # fondo de la página: gris claro
+secondaryBackgroundColor = "#FFFFFF"  # fondo de los controles (cargador de archivos, botones, barras)
+borderColor = "#D9DCE3"               # borde suave de los recuadros
+
+[theme.sidebar]
+backgroundColor = "#FFFFFF"           # barra lateral blanca, para distinguirla del fondo gris
+secondaryBackgroundColor = "#F0F2F6"  # selector de modelo en gris claro sobre la barra blanca

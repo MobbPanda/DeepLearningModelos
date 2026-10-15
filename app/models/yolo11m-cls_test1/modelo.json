@@ -1,0 +1,23 @@
+{
+  "nombre": "YOLO11m-cls · test1",
+  "tipo": "ultralytics",
+  "imgsz": 224,
+  "metricas_test": {
+    "imagenes_test": 3028,
+    "accuracy": 0.9921,
+    "accuracy_top5": 0.9974,
+    "precision_macro": 0.9933,
+    "recall_macro": 0.9883,
+    "f1_macro": 0.9907,
+    "precision_ponderada": 0.9921,
+    "recall_ponderado": 0.9921,
+    "f1_ponderado": 0.9921
+  },
+  "origen": {
+    "notebook": "yolo11.ipynb",
+    "prueba": "test1",
+    "entrenado": "2026-10-15T07:03:12",
+    "epocas": "47/50",
+    "clases": 25
+  }
+}

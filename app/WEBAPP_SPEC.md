@@ -95,6 +95,8 @@ La página asume lo siguiente. **Si el entrenamiento cambia algo, se ajusta solo
   - Si es una CNN propia, `torch.load` busca la clase en el módulo donde estaba al guardar: definirla en un archivo
     `.py` (p. ej. `arquitectura.py`), importarla desde ahí en el notebook y copiar ese mismo archivo a `app/`
     (si se define dentro del notebook, queda como `__main__` y la app no la encuentra).
+  - **ResNet-50 (`resnet50.ipynb`):** se exporta con `python exportar_modelo.py resnet50 testN`, que crea
+    `app/models/resnet50_testN/` con el modelo en media precisión (~47 MB); la app lo convierte a float32 al cargarlo.
   - Alternativa: TorchScript (`torch.jit.script(model).save("model.pt")`), pero ⚠️ **PyTorch no soporta
     TorchScript en Python 3.14+**. Orden de carga: primero `torch.load`, luego `torch.jit.load`.
 
