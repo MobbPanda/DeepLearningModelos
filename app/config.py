@@ -1,7 +1,8 @@
 """Parámetros de la aplicación web.
 
-IMG_SIZE y la normalización deben coincidir con las transformaciones de
-validación/test usadas al entrenar el modelo (no con las de aumentación).
+El tamaño de entrada, la normalización y el tipo de cada modelo NO se configuran aquí:
+vienen en el modelo.json de cada carpeta de models/ (ver README.md), porque cada
+modelo puede tener un preprocesamiento distinto.
 """
 
 from pathlib import Path
@@ -12,19 +13,13 @@ import torch
 BASE_DIR = Path(__file__).resolve().parent
 
 # Rutas
-MODEL_PATH = BASE_DIR / "models" / "model.pt"
-CLASSES_PATH = BASE_DIR / "classes.json"
+# Un subdirectorio por modelo: models/<id>/{model.pt, classes.json, modelo.json}
+MODELS_DIR = BASE_DIR / "models"
+# Clases del modo demo (se usa solo cuando no hay ningún modelo en MODELS_DIR)
+DEMO_CLASSES_PATH = BASE_DIR / "classes.json"
 
-# Preprocesamiento
-IMG_SIZE = 224
-# None: solo se escala a [0, 1]. Con pesos de ImageNet usar:
-# NORMALIZE_MEAN = [0.485, 0.456, 0.406]
-# NORMALIZE_STD = [0.229, 0.224, 0.225]
-NORMALIZE_MEAN = None
-NORMALIZE_STD = None
-
-# Salida del modelo: True si el modelo ya aplica softmax
-MODEL_OUTPUTS_PROBS = False
+# Tamaño de entrada del modo demo y de los modelos cuyo modelo.json no indica "imgsz"
+DEFAULT_IMG_SIZE = 224
 
 # Presentación del resultado
 CONFIDENCE_THRESHOLD = 0.50

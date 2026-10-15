@@ -1,0 +1,86 @@
+{
+  "prueba": "test1",
+  "modelo_base": "yolo11m-cls.pt",
+  "datos": {
+    "min_imagenes_por_clase": 100,
+    "proporciones": {
+      "train": 0.7,
+      "val": 0.15,
+      "test": 0.15
+    },
+    "semilla": 42,
+    "eliminar_duplicados": true,
+    "dataset_dividido": "dataset/simpsons_split",
+    "clases": 25,
+    "imagenes": {
+      "train": 14128,
+      "val": 3028,
+      "test": 3028
+    },
+    "clases_excluidas": {
+      "carl_carlson": 98,
+      "ralph_wiggum": 89,
+      "patty_bouvier": 72,
+      "martin_prince": 71,
+      "professor_john_frink": 64,
+      "snake_jailbird": 55,
+      "cletus_spuckler": 46,
+      "rainier_wolfcastle": 44,
+      "agnes_skinner": 42,
+      "sideshow_mel": 40,
+      "otto_mann": 32,
+      "fat_tony": 27,
+      "gil": 27,
+      "miss_hoover": 17,
+      "troy_mcclure": 8,
+      "disco_stu": 8,
+      "lionel_hutz": 3
+    }
+  },
+  "hiperparametros": {
+    "imgsz": 224,
+    "epochs": 50,
+    "patience": 10,
+    "batch": -1,
+    "optimizer": "AdamW",
+    "lr0": 0.0005,
+    "lrf": 0.01,
+    "cos_lr": true,
+    "warmup_epochs": 3,
+    "weight_decay": 0.0005,
+    "dropout": 0.2,
+    "cls_pw": 0.0,
+    "amp": true,
+    "workers": 8,
+    "seed": 42,
+    "deterministic": true,
+    "fliplr": 0.5,
+    "flipud": 0.0,
+    "scale": 0.5,
+    "auto_augment": "randaugment",
+    "hsv_h": 0.015,
+    "hsv_s": 0.4,
+    "hsv_v": 0.4,
+    "erasing": 0.4
+  },
+  "evaluacion": {
+    "muestra_train_por_epoca": 1500,
+    "lote_inferencia": 64,
+    "repeticiones_latencia": 50
+  },
+  "entorno": {
+    "python": "3.14.4",
+    "sistema": "Linux-7.0.0-38-generic-x86_64-desconocido-with-glibc2.43",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "ultralytics": "8.4.177",
+    "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "vram_gb": 8.2,
+    "cpus": 20
+  },
+  "inicio": "2026-10-15T07:03:12",
+  "fin": "2026-10-15T07:23:24",
+  "duracion_min": 20.1,
+  "epocas_ejecutadas": 47,
+  "mejor_epoca_val_top1": 37
+}

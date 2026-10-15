@@ -1,5 +1,49 @@
+# ── Datos ──────────────────────────────────────────────
+# Dataset original y dividido (dataset/, simpsons_dataset/, ...)
 *dataset/
-*.venv
-*.pth
+# Copias comprimidas del dataset para pasarlo entre computadores
+*.zip
+
+# ── Pesos y modelos ────────────────────────────────────
 *.pt
+*.pth
+*.onnx
+*.engine
+*.torchscript
 modelos_guardados/
+# Excepción: los pesos exportados a la aplicación web sí se pueden versionar
+!app/models/*/model.pt
+
+# ── Resultados regenerables ────────────────────────────
+# Copia del notebook que se guarda en cada resultados/yolo11/testN/
+yolo11_copia.ipynb
+# Carpeta por defecto de Ultralytics (si se entrena sin indicar "project")
+runs/
+
+# ── Entornos virtuales ─────────────────────────────────
+*.venv
+venv/
+env/
+
+# ── Python ─────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ── Jupyter ────────────────────────────────────────────
+.ipynb_checkpoints/
+
+# ── Streamlit (credenciales locales) ───────────────────
+.streamlit/secrets.toml
+
+# ── Configuración local del editor y del sistema ───────
+.vscode/
+.idea/
+.claude/settings.local.json
+.DS_Store
+Thumbs.db
+
+CLAUDE.md

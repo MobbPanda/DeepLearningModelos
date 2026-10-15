@@ -1,0 +1,198 @@
+2026-10-15 07:03:18,642 Ultralytics 8.4.177 🚀 Python-3.14.4 torch-2.14.1+cu130 CUDA:0 (NVIDIA GeForce RTX 4060 Laptop GPU, 7806MiB)
+2026-10-15 07:03:18,646 [34m[1mengine/trainer: [0magnostic_nms=False, amp=True, angle=1.0, augment=False, auto_augment=randaugment, batch=-1, bgr=0.0, box=7.5, cache=False, cfg=None, channels_last=None, classes=None, close_mosaic=10, cls=0.5, cls_pw=0.0, cls_remap=True, compile=False, conf=None, copy_paste=0.0, copy_paste_mode=flip, cos_lr=True, cutmix=0.0, data=/home/felipe/Escritorio/6° semestre/deeplearning/ev2/DeepLearningModelos/dataset/simpsons_split, degrees=0.0, deterministic=True, device=0, dfl=1.5, dgrad=0.5, dis=6.0, distill_model=None, dlam=1.0, dlog=1.0, dnn=False, dropout=0.2, dynamic=False, embed=None, epochs=50, erasing=0.4, exist_ok=True, fliplr=0.5, flipud=0.0, format=torchscript, fraction=1.0, freeze=None, hsv_h=0.015, hsv_s=0.4, hsv_v=0.4, imgsz=224, iou=0.7, kobj=1.0, line_width=None, lr0=0.0005, lrf=0.01, mask_ratio=4, max_det=300, mixup=0.0, mode=train, model=yolo11m-cls.pt, momentum=0.937, mosaic=1.0, multi_scale=0.0, name=test1, nbs=64, nms=None, opset=None, optimize=False, optimizer=AdamW, overlap_mask=True, patience=10, perspective=0.0, plots=True, pose=12.0, pretrained=True, profile=False, project=/home/felipe/Escritorio/6° semestre/deeplearning/ev2/DeepLearningModelos/resultados/yolo11, quantize=None, rect=False, resume=False, retina_masks=False, rle=1.0, save=True, save_conf=False, save_crop=False, save_dir=/home/felipe/Escritorio/6° semestre/deeplearning/ev2/DeepLearningModelos/resultados/yolo11/test1, save_frames=False, save_json=False, save_period=-1, save_txt=False, scale=0.5, seed=42, shear=0.0, show=False, show_boxes=True, show_conf=True, show_labels=True, simplify=True, single_cls=False, source=None, split=val, stream_buffer=False, task=classify, time=None, tracker=tracktrack.yaml, translate=0.1, val=True, verbose=True, vid_stride=1, visualize=False, warmup_bias_lr=0.1, warmup_epochs=3, warmup_momentum=0.8, weight_decay=0.0005, workers=8, workspace=None
+2026-10-15 07:03:18,774 [34m[1mtrain:[0m /home/felipe/Escritorio/6° semestre/deeplearning/ev2/DeepLearningModelos/dataset/simpsons_split/train... found 14128 images in 25 classes ✅ 
+2026-10-15 07:03:18,806 [34m[1mval:[0m /home/felipe/Escritorio/6° semestre/deeplearning/ev2/DeepLearningModelos/dataset/simpsons_split/val... found 3028 images in 25 classes ✅ 
+2026-10-15 07:03:18,835 [34m[1mtest:[0m /home/felipe/Escritorio/6° semestre/deeplearning/ev2/DeepLearningModelos/dataset/simpsons_split/test... found 3028 images in 25 classes ✅ 
+2026-10-15 07:03:18,836 Overriding model.yaml nc=80 with nc=25
+2026-10-15 07:03:18,837 
+                   from  n    params  module                                       arguments                     
+2026-10-15 07:03:18,838   0                  -1  1      1856  ultralytics.nn.modules.conv.Conv             [3, 64, 3, 2]                 
+2026-10-15 07:03:18,838   1                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]               
+2026-10-15 07:03:18,841   2                  -1  1    111872  ultralytics.nn.modules.block.C3k2            [128, 256, 1, True, 0.25]     
+2026-10-15 07:03:18,843   3                  -1  1    590336  ultralytics.nn.modules.conv.Conv             [256, 256, 3, 2]              
+2026-10-15 07:03:18,847   4                  -1  1    444928  ultralytics.nn.modules.block.C3k2            [256, 512, 1, True, 0.25]     
+2026-10-15 07:03:18,855   5                  -1  1   2360320  ultralytics.nn.modules.conv.Conv             [512, 512, 3, 2]              
+2026-10-15 07:03:18,866   6                  -1  1   1380352  ultralytics.nn.modules.block.C3k2            [512, 512, 1, True]           
+2026-10-15 07:03:18,874   7                  -1  1   2360320  ultralytics.nn.modules.conv.Conv             [512, 512, 3, 2]              
+2026-10-15 07:03:18,887   8                  -1  1   1380352  ultralytics.nn.modules.block.C3k2            [512, 512, 1, True]           
+2026-10-15 07:03:18,892   9                  -1  1    990976  ultralytics.nn.modules.block.C2PSA           [512, 512, 1]                 
+2026-10-15 07:03:18,895  10                  -1  1    689945  ultralytics.nn.modules.head.Classify         [512, 25]                     
+2026-10-15 07:03:19,023 YOLO11m-cls summary: 106 layers, 10,385,241 parameters, 10,385,241 gradients, 39.7 GFLOPs
+2026-10-15 07:03:19,036 Transferred 294/296 items from pretrained weights
+2026-10-15 07:03:19,063 [34m[1mAMP: [0mrunning Automatic Mixed Precision (AMP) checks...
+2026-10-15 07:03:19,883 [34m[1mAMP: [0mchecks passed ✅
+2026-10-15 07:03:19,897 [34m[1mAutoBatch: [0mComputing optimal batch size for imgsz=224 at 60.0% GPU memory utilization.
+2026-10-15 07:03:19,898 [34m[1mAutoBatch: [0mCUDA:0 (NVIDIA GeForce RTX 4060 Laptop GPU) 7.62G total, 0.13G reserved, 0.12G allocated, 7.38G free
+2026-10-15 07:03:19,898       Params      GFLOPs  GPU_mem (GB)  forward (ms) backward (ms)                   input                  output
+2026-10-15 07:03:20,944     10385241       4.853         0.241         15.43         493.3        (1, 3, 224, 224)                 (1, 25)
+2026-10-15 07:03:21,420     10385241       9.706         0.323         6.628         136.6        (2, 3, 224, 224)                 (2, 25)
+2026-10-15 07:03:21,771     10385241       19.41         0.398         7.105         17.26        (4, 3, 224, 224)                 (4, 25)
+2026-10-15 07:03:22,569     10385241       38.82         0.531         7.408         143.3        (8, 3, 224, 224)                 (8, 25)
+2026-10-15 07:03:23,352     10385241       77.65         0.851         8.584         438.8       (16, 3, 224, 224)                (16, 25)
+2026-10-15 07:03:23,601 [34m[1mAutoBatch: [0mUsing batch-size 96 for CUDA:0 4.22G/7.62G (55%) ✅
+2026-10-15 07:03:23,618 [34m[1mtrain: [0mFast image access ✅ (ping: 0.0±0.0 ms, read: 2306.0±957.6 MB/s, size: 29.7 KB)
+2026-10-15 07:03:25,448 [34m[1mtrain: [0mNew cache created: /home/felipe/Escritorio/6° semestre/deeplearning/ev2/DeepLearningModelos/dataset/simpsons_split/train.cache
+2026-10-15 07:03:25,514 [34m[1mval: [0mFast image access ✅ (ping: 0.0±0.0 ms, read: 2010.0±740.7 MB/s, size: 28.4 KB)
+2026-10-15 07:03:25,867 [34m[1mval: [0mNew cache created: /home/felipe/Escritorio/6° semestre/deeplearning/ev2/DeepLearningModelos/dataset/simpsons_split/val.cache
+2026-10-15 07:03:25,880 [34m[1moptimizer:[0m AdamW(lr=0.0005, momentum=0.937) with parameter groups 49 weight(decay=0.0), 50 weight(decay=0.00075), 50 bias(decay=0.0)
+2026-10-15 07:03:25,895 Using 14128 train, 3028 val images for fraction=1.0 at imgsz=224
+Using 8 dataloader workers
+Logging results to [1m/home/felipe/Escritorio/6° semestre/deeplearning/ev2/DeepLearningModelos/resultados/yolo11/test1[0m
+Starting training for 50 epochs...
+2026-10-15 07:03:39,972 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:04:18,078                    all      0.916      0.988
+2026-10-15 07:04:19,508 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:04:44,337                    all      0.959      0.992
+2026-10-15 07:04:45,079 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:05:09,443                    all       0.96      0.991
+2026-10-15 07:05:10,222 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:05:34,252                    all      0.969      0.993
+2026-10-15 07:05:35,078 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:05:59,099                    all      0.969      0.993
+2026-10-15 07:05:59,941 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:06:23,780                    all       0.98      0.995
+2026-10-15 07:06:24,653 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:06:48,403                    all      0.975      0.994
+2026-10-15 07:06:49,216 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:07:12,618                    all      0.977      0.996
+2026-10-15 07:07:13,245 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:07:36,947                    all       0.98      0.996
+2026-10-15 07:07:37,618 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:08:01,140                    all      0.974      0.996
+2026-10-15 07:08:01,788 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:08:25,556                    all      0.984      0.997
+2026-10-15 07:08:26,497 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:08:50,021                    all      0.982      0.996
+2026-10-15 07:08:50,703 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:09:14,658                    all      0.982      0.996
+2026-10-15 07:09:15,425 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:09:39,298                    all      0.984      0.997
+2026-10-15 07:09:40,101 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:10:03,980                    all      0.981      0.997
+2026-10-15 07:10:04,738 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:10:28,599                    all      0.982      0.997
+2026-10-15 07:10:29,439 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:10:53,137                    all      0.985      0.997
+2026-10-15 07:10:53,853 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:11:17,441                    all      0.985      0.998
+2026-10-15 07:11:18,098 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:11:41,619                    all      0.985      0.997
+2026-10-15 07:11:42,275 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:12:05,939                    all      0.984      0.997
+2026-10-15 07:12:06,647 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:12:30,484                    all      0.984      0.998
+2026-10-15 07:12:31,432 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:12:55,158                    all      0.987      0.996
+2026-10-15 07:12:56,176 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:13:19,734                    all      0.985      0.996
+2026-10-15 07:13:20,477 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:13:44,191                    all      0.986      0.998
+2026-10-15 07:13:44,906 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:14:08,894                    all      0.986      0.998
+2026-10-15 07:14:09,659 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:14:33,490                    all      0.987      0.997
+2026-10-15 07:14:34,342 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:14:58,037                    all      0.986      0.997
+2026-10-15 07:14:58,649 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:15:22,174                    all      0.988      0.997
+2026-10-15 07:15:22,875 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:15:46,665                    all      0.987      0.998
+2026-10-15 07:15:47,268 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:16:10,891                    all      0.987      0.997
+2026-10-15 07:16:11,703 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:16:35,451                    all      0.987      0.997
+2026-10-15 07:16:36,248 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:16:59,816                    all      0.988      0.998
+2026-10-15 07:17:00,699 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:17:24,434                    all      0.988      0.997
+2026-10-15 07:17:25,137 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:17:48,918                    all      0.987      0.997
+2026-10-15 07:17:49,640 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:18:13,424                    all      0.986      0.996
+2026-10-15 07:18:14,234 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:18:37,783                    all      0.987      0.996
+2026-10-15 07:18:38,535 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:19:02,002                    all       0.99      0.997
+2026-10-15 07:19:02,668 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:19:26,321                    all      0.989      0.997
+2026-10-15 07:19:26,904 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:19:50,684                    all      0.988      0.997
+2026-10-15 07:19:51,495 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:20:15,175                    all      0.989      0.997
+2026-10-15 07:20:16,142 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:20:50,364                    all      0.989      0.997
+2026-10-15 07:20:50,998 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:21:14,546                    all      0.989      0.996
+2026-10-15 07:21:15,296 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:21:39,108                    all       0.99      0.997
+2026-10-15 07:21:39,951 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:22:03,689                    all      0.989      0.997
+2026-10-15 07:22:04,550 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:22:28,285                    all      0.989      0.997
+2026-10-15 07:22:29,058 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:22:52,842                    all      0.989      0.996
+2026-10-15 07:22:53,690 
+      Epoch    GPU_mem       loss  Instances       Size
+2026-10-15 07:23:17,451                    all      0.989      0.997
+2026-10-15 07:23:17,457 [34m[1mEarlyStopping: [0mTraining stopped early as no improvement observed in last 10 epochs. Best results observed at epoch 37, best model saved as best.pt.
+To update EarlyStopping(patience=10) pass a new patience value, i.e. `patience=300` or use `patience=0` to disable EarlyStopping.
+2026-10-15 07:23:18,392 
+47 epochs completed in 0.331 hours.
+2026-10-15 07:23:18,529 Optimizer stripped from /home/felipe/Escritorio/6° semestre/deeplearning/ev2/DeepLearningModelos/resultados/yolo11/test1/weights/last.pt, 21.0MB
+2026-10-15 07:23:18,583 Optimizer stripped from /home/felipe/Escritorio/6° semestre/deeplearning/ev2/DeepLearningModelos/resultados/yolo11/test1/weights/best.pt, 21.0MB
+2026-10-15 07:23:18,583 
+Validating /home/felipe/Escritorio/6° semestre/deeplearning/ev2/DeepLearningModelos/resultados/yolo11/test1/weights/best.pt...
+2026-10-15 07:23:18,584 Ultralytics 8.4.177 🚀 Python-3.14.4 torch-2.14.1+cu130 CUDA:0 (NVIDIA GeForce RTX 4060 Laptop GPU, 7806MiB)
+2026-10-15 07:23:19,680 YOLO11m-cls summary (fused): 57 layers, 10,373,657 parameters, 0 gradients, 39.4 GFLOPs
+2026-10-15 07:23:19,793 [34m[1mtrain:[0m /home/felipe/Escritorio/6° semestre/deeplearning/ev2/DeepLearningModelos/dataset/simpsons_split/train... found 14128 images in 25 classes ✅ 
+2026-10-15 07:23:19,820 [34m[1mval:[0m /home/felipe/Escritorio/6° semestre/deeplearning/ev2/DeepLearningModelos/dataset/simpsons_split/val... found 3028 images in 25 classes ✅ 
+2026-10-15 07:23:19,844 [34m[1mtest:[0m /home/felipe/Escritorio/6° semestre/deeplearning/ev2/DeepLearningModelos/dataset/simpsons_split/test... found 3028 images in 25 classes ✅ 
+2026-10-15 07:23:23,481                    all       0.99      0.997
+2026-10-15 07:23:23,482 Speed: 0.1ms preprocess, 0.6ms inference, 0.0ms loss, 0.0ms postprocess per image
+2026-10-15 07:23:23,482 Results saved to [1m/home/felipe/Escritorio/6° semestre/deeplearning/ev2/DeepLearningModelos/resultados/yolo11/test1[0m

@@ -1,5 +1,6 @@
 streamlit>=1.50
 torch
 torchvision
+ultralytics
 pillow
 numpy

@@ -1,0 +1,9 @@
+{
+  "parametros_millones": 10.39,
+  "gflops": 4.85,
+  "tamano_best_pt_mb": 21.0,
+  "latencia_cpu_ms": 23.5,
+  "latencia_gpu_ms": 2.8,
+  "duracion_entrenamiento_min": 20.1,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU"
+}

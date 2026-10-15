@@ -10,7 +10,7 @@ El entrenamiento del modelo y la generación del `.pt` quedan fuera de este docu
 Página web lo más básica posible, con ventanas y botones ordenados, que permita:
 
 1. **Subir** una imagen desde el computador.
-2. **Procesar** la imagen y clasificarla con el modelo PyTorch (`.pt`).
+2. **Procesar** la imagen y clasificarla con el modelo elegido en un selector (`.pt` de YOLO/Ultralytics o de PyTorch).
 3. **Mostrar el resultado** en la misma página, p. ej.: **"Es Homer Simpson (92%)"**.
 
 Cubre el punto 6 de la pauta (Despliegue del Modelo): recibir una imagen externa cualquiera,
@@ -23,10 +23,11 @@ preprocesarla automáticamente (resolución, canales y escala) y retornar la cla
 | Tema | Decisión |
 |---|---|
 | Framework | **Streamlit** (todo en Python, un solo `app.py`) |
-| Dataset | **The_Simpsons_Characters_Data**: 42 clases confirmadas (`dataset/The_Simpsons_Characters_Data/simpsons_dataset/`) |
-| Clases | Archivo editable `classes.json` (no hardcodeadas en el código) |
-| Formato del modelo | **`.pt` con modelo completo** (`torch.save(model)`; TorchScript como respaldo) |
-| Sin `.pt` disponible | **Modo demo**: predicciones aleatorias + aviso visible |
+| Dataset | **The_Simpsons_Characters_Data**: 42 clases (`dataset/simpsons_dataset/`); cada modelo usa las suyas (YOLO11: 25) |
+| Modelos | **Varios a la vez**: una carpeta por modelo en `models/` (`model.pt` + `classes.json` + `modelo.json`) y un **selector** en la barra lateral con sus métricas de prueba |
+| Clases | `classes.json` de cada modelo (no hardcodeadas en el código) |
+| Formato del modelo | `"tipo"` en `modelo.json`: **`ultralytics`** (checkpoint de YOLO, se carga con `YOLO(...)`) o **`torch`** (`torch.save(model)`; TorchScript como respaldo) |
+| Sin modelos disponibles | **Modo demo**: predicciones aleatorias + aviso visible |
 | Resultado | **Top-1 destacado + Top-3** con barras de probabilidad |
 | Confianza baja | **Aviso con umbral** (por defecto 50 %, configurable) |
 | Entrada | **Solo subir archivo** (JPG, JPEG, PNG, WEBP) |
@@ -43,13 +44,17 @@ DeepLearningModelos/
 └── app/
     ├── WEBAPP_SPEC.md      ← este documento
     ├── app.py              ← interfaz Streamlit (solo UI)
-    ├── config.py           ← parámetros (rutas, tamaño de imagen, umbral, normalización)
-    ├── predictor.py        ← carga del modelo, preprocesamiento, inferencia, modo demo
-    ├── classes.json        ← lista ordenada de clases (índice → nombre)
+    ├── config.py           ← parámetros generales (carpeta de modelos, umbral, Top-K, dispositivo)
+    ├── predictor.py        ← catálogo de modelos, carga, preprocesamiento, inferencia, modo demo
+    ├── classes.json        ← clases del modo demo (las 42 del dataset)
     ├── requirements.txt    ← dependencias
     ├── README.md           ← instrucciones de ejecución (entregable de la pauta)
     └── models/
-        └── .gitkeep        ← aquí se copiará el modelo: models/model.pt
+        ├── .gitkeep
+        └── <id>/           ← un modelo por carpeta, p. ej. yolo11m-cls_test3/
+            ├── model.pt
+            ├── classes.json
+            └── modelo.json
 ```
 
 **Regla:** `app.py` no contiene lógica de modelo; `predictor.py` no importa Streamlit
@@ -78,44 +83,44 @@ DeepLearningModelos/
 
 ## 5. Contrato con el modelo (lo que el notebook debe entregar)
 
-La página asume lo siguiente. **Si el entrenamiento cambia algo, se ajusta solo `config.py` / `classes.json`.**
+La página asume lo siguiente. **Si el entrenamiento cambia algo, se ajusta solo el `modelo.json` / `classes.json` de ese modelo.**
 
-### 5.1 Archivo
-- Ruta: `app/models/model.pt` (configurable en `config.py` → `MODEL_PATH`).
-- **Formato recomendado: modelo completo** con `torch.save(model, "model.pt")`.
+### 5.1 Carpeta del modelo
+- Cada modelo es una carpeta `app/models/<id>/` con `model.pt`, `classes.json` y `modelo.json`.
+- El formato completo de `modelo.json` está en `app/README.md`. Campo obligatorio: `"tipo"`.
+- **YOLO (`"tipo": "ultralytics"`):** `model.pt` es el `best.pt` de Ultralytics, tal cual. Se exporta desde
+  `DeepLearningModelos/` con `python exportar_modelo.py testN` (o `EXPORTAR_A_APP = True` en `yolo11.ipynb`).
+- **PyTorch (`"tipo": "torch"`):** modelo completo con `torch.save(model, "model.pt")`.
   - Si la arquitectura es de `torchvision` (ResNet, EfficientNet, VGG, etc.), se carga sin código adicional.
-  - Si es una CNN propia, la clase debe ser importable al cargar: copiar su definición a `app/`
-    (p. ej. `app/arquitectura.py`) e importarla en `predictor.py`.
-- Alternativa: TorchScript (`torch.jit.script(model).save("model.pt")`). La app lo soporta como respaldo,
-  pero ⚠️ **PyTorch no soporta TorchScript en Python 3.14+** (versión instalada localmente), por lo que
-  puede fallar. Orden de carga en la app: primero `torch.load`, luego `torch.jit.load`.
+  - Si es una CNN propia, `torch.load` busca la clase en el módulo donde estaba al guardar: definirla en un archivo
+    `.py` (p. ej. `arquitectura.py`), importarla desde ahí en el notebook y copiar ese mismo archivo a `app/`
+    (si se define dentro del notebook, queda como `__main__` y la app no la encuentra).
+  - Alternativa: TorchScript (`torch.jit.script(model).save("model.pt")`), pero ⚠️ **PyTorch no soporta
+    TorchScript en Python 3.14+**. Orden de carga: primero `torch.load`, luego `torch.jit.load`.
 
 ### 5.2 Entrada y salida
-- Entrada: tensor `float32` de forma `[1, 3, IMG_SIZE, IMG_SIZE]`, RGB.
-- Salida: logits `[1, NUM_CLASSES]` (sin softmax; la app aplica softmax).
-  Si el modelo ya incluye softmax, poner `MODEL_OUTPUTS_PROBS = True` en `config.py`.
+- `ultralytics`: Ultralytics recibe la imagen y aplica su propia transformación de validación (lado corto a `imgsz`,
+  recorte central, escala a [0, 1]); devuelve probabilidades.
+- `torch`: entrada `float32` de forma `[1, 3, imgsz, imgsz]`, RGB, preprocesada según `redimension` y `normalizacion`
+  de `modelo.json`. Salida `[1, NUM_CLASSES]`: logits (la app aplica softmax) o probabilidades (`"salida": "probabilidades"`).
 
 ### 5.3 Clases
 - `classes.json` contiene la lista de clases **en el mismo orden que los índices del modelo**.
-- Con `torchvision.datasets.ImageFolder`, el orden es **alfabético por nombre de carpeta**
-  (`dataset.classes`). Se recomienda generarlo desde el notebook:
-  ```python
-  import json
-  json.dump(train_dataset.classes, open("classes.json", "w"), indent=2)
-  ```
+- Con `torchvision.datasets.ImageFolder` y con Ultralytics, el orden es **alfabético por nombre de carpeta**.
 - Formato aceptado:
   ```json
-  ["abraham_grampa_simpson", "agnes_skinner", "..."]
+  ["abraham_grampa_simpson", "apu_nahasapeemapetilon", "..."]
   ```
   o con nombre visible explícito:
   ```json
   [{"id": "homer_simpson", "label": "Homer Simpson"}, ...]
   ```
-- La app valida que `len(classes) == NUM_CLASSES` de la salida del modelo; si no coincide, muestra un error claro.
+- La app valida que el número de salidas del modelo coincida con `classes.json` y, en los modelos de Ultralytics
+  (que guardan los nombres de sus clases), también el orden. Si no coincide, muestra un error claro.
 
 ### 5.4 Clases del dataset (confirmadas)
-El dataset `simpsons_dataset/` contiene 42 carpetas (una por personaje, 41.866 imágenes JPG en total).
-`classes.json` se inicializa con ellas en orden alfabético (el mismo que usa `ImageFolder`):
+El dataset `simpsons_dataset/` contiene 42 carpetas (una por personaje, 20.933 imágenes JPG; el directorio tiene 41.866 archivos porque incluye una copia anidada idéntica).
+El `classes.json` de la raíz de `app/` (modo demo) las contiene en orden alfabético. Cada modelo trae su propio `classes.json` (p. ej. YOLO11 usa 25 clases, las que tienen más de 100 imágenes):
 
 ```
 abraham_grampa_simpson, agnes_skinner, apu_nahasapeemapetilon, barney_gumble, bart_simpson,
@@ -140,46 +145,46 @@ troy_mcclure, waylon_smithers
 
 | Parámetro | Valor por defecto | Descripción |
 |---|---|---|
-| `MODEL_PATH` | `models/model.pt` | Ruta al modelo (relativa a `app/`). |
-| `CLASSES_PATH` | `classes.json` | Ruta a la lista de clases. |
-| `IMG_SIZE` | `224` | Lado de la imagen cuadrada de entrada. |
-| `NORMALIZE_MEAN` | `None` | Si es `None`: solo escala a [0, 1] (lo que pide la pauta). Si se usa transfer learning con pesos ImageNet: `[0.485, 0.456, 0.406]`. |
-| `NORMALIZE_STD` | `None` | Ídem; ImageNet: `[0.229, 0.224, 0.225]`. |
-| `MODEL_OUTPUTS_PROBS` | `False` | `True` si el modelo ya aplica softmax. |
+| `MODELS_DIR` | `models/` | Carpeta con un subdirectorio por modelo. |
+| `DEMO_CLASSES_PATH` | `classes.json` | Clases del modo demo. |
+| `DEFAULT_IMG_SIZE` | `224` | Tamaño de entrada del modo demo y de los modelos cuyo `modelo.json` no indica `imgsz`. |
 | `CONFIDENCE_THRESHOLD` | `0.50` | Bajo este valor se muestra aviso de incertidumbre. |
 | `TOP_K` | `3` | Cantidad de clases en el ranking. |
 | `ALLOWED_TYPES` | `["jpg", "jpeg", "png", "webp"]` | Extensiones permitidas. |
 | `DEVICE` | `"cuda"` si disponible, si no `"cpu"` | Dispositivo de inferencia. |
 
-⚠️ **Importante:** `IMG_SIZE`, `NORMALIZE_MEAN` y `NORMALIZE_STD` deben ser **idénticos** a los usados en
-validación/test del notebook (no los de *data augmentation*). Si no coinciden, las predicciones serán malas.
+⚠️ **Importante:** el tamaño de entrada y el preprocesamiento de cada modelo van en su `modelo.json`, y deben ser
+**idénticos** a los usados en validación/test del notebook (no los de *data augmentation*). Si no coinciden, las
+predicciones serán malas. Los modelos de Ultralytics aplican su propia transformación de validación.
 
 ---
 
 ## 7. Lógica de procesamiento (`predictor.py`)
 
-### 7.1 Carga del modelo (una sola vez, cacheada con `@st.cache_resource` desde `app.py`)
-1. Si `MODEL_PATH` **no existe** → activar **modo demo**.
-2. Si existe:
-   1. Intentar `torch.load(MODEL_PATH, map_location=DEVICE, weights_only=False)`.
-   2. Si falla, intentar `torch.jit.load(MODEL_PATH, map_location=DEVICE)`.
-   3. Si el resultado es un `dict` (es un `state_dict`, no un modelo completo) → error claro:
-      *"El archivo contiene solo pesos (state_dict). Exporte el modelo completo o en TorchScript."*
-   4. Llamar `model.eval()`.
-3. Cargar `classes.json` y validar contra la salida del modelo (pasada de prueba con un tensor de ceros).
+### 7.1 Catálogo y carga del modelo
+1. En cada recarga se listan las carpetas de `models/` que tienen `modelo.json` (ordenadas por F1 macro de prueba).
+   Las que están incompletas o mal formadas se muestran como aviso, sin detener la app.
+2. Si no hay ningún modelo → **modo demo**.
+3. El modelo elegido se carga una sola vez (`@st.cache_resource`, clave = carpeta + fecha de `model.pt`):
+   - `ultralytics`: `YOLO("models/<id>/model.pt", task="classify")`.
+   - `torch`: `torch.load(..., weights_only=False)`; si falla, `torch.jit.load(...)`. Si el resultado es un `dict`
+     (state_dict o checkpoint) → error claro. Luego `model.eval()`.
+4. Se valida `classes.json` contra la salida del modelo (número de clases y, en Ultralytics, el orden).
+5. Al cambiar de modelo en el selector se borra el resultado anterior.
 
 ### 7.2 Preprocesamiento de la imagen subida
 1. Abrir con Pillow: `Image.open(archivo)`.
 2. Corregir orientación EXIF (`ImageOps.exif_transpose`) — fotos de celular.
 3. Convertir a **RGB** (`.convert("RGB")`): resuelve PNG con transparencia (RGBA), escala de grises (L) y paletas (P).
-4. **Redimensionar** a `IMG_SIZE × IMG_SIZE`.
+4. **Redimensionar** según el modelo: lado corto a `imgsz` + recorte central (Ultralytics y `"redimension": "recorte_central"`)
+   o directo a `imgsz × imgsz` (`"redimension": "estirar"`).
 5. Convertir a tensor y **escalar a [0, 1]** (`transforms.ToTensor()`).
-6. Si hay `NORMALIZE_MEAN/STD` → aplicar `transforms.Normalize`.
+6. Si `modelo.json` trae `normalizacion` → aplicar `transforms.Normalize`.
 7. Agregar dimensión de lote: `[3, H, W] → [1, 3, H, W]`.
 
 ### 7.3 Inferencia
 1. `with torch.inference_mode(): logits = model(x.to(DEVICE))`.
-2. `probs = softmax(logits, dim=1)` (salvo `MODEL_OUTPUTS_PROBS = True`).
+2. `probs = softmax(logits, dim=1)` (salvo `"salida": "probabilidades"`; Ultralytics ya entrega probabilidades).
 3. Obtener `top_k` (índices + probabilidades) y mapear índices a nombres visibles.
 4. Devolver un resultado simple, p. ej.:
    ```python
@@ -194,7 +199,7 @@ validación/test del notebook (no los de *data augmentation*). Si no coinciden, 
    ```
 
 ### 7.4 Modo demo
-- Se activa automáticamente si no hay `model.pt`.
+- Se activa automáticamente si no hay ningún modelo en `models/`.
 - Genera probabilidades aleatorias (softmax de un vector aleatorio) sobre las clases de `classes.json`.
 - La semilla se deriva del contenido de la imagen → la misma imagen da siempre el mismo resultado.
 - Ejecuta igualmente el preprocesamiento real (para validar que funciona).
@@ -209,7 +214,7 @@ validación/test del notebook (no los de *data augmentation*). Si no coinciden, 
 ┌────────────────────────────────────────────────────────────┐
 │  🍩 Clasificador de personajes de Los Simpson              │
 │  Sube una imagen y el modelo dirá qué personaje es.        │
-│  [⚠️ Modo demo: no se encontró models/model.pt]  (si aplica)│
+│  [⚠️ Modo demo: no hay modelos en models/]       (si aplica)│
 ├─────────────────────────────┬──────────────────────────────┤
 │  1. Imagen                  │  2. Resultado                │
 │                             │                              │
@@ -222,8 +227,11 @@ validación/test del notebook (no los de *data augmentation*). Si no coinciden, 
 │  └───────────────────────┘  │  Lisa Simpson    ░        1% │
 ├─────────────────────────────┴──────────────────────────────┤
 │ ▸ Detalles del modelo (colapsable): ruta, nº de clases,    │
-│   tamaño de entrada, dispositivo, tiempo de inferencia     │
+│   preprocesamiento, dispositivo, tiempo de inferencia      │
 └────────────────────────────────────────────────────────────┘
+
+Barra lateral: **selector de modelo** + métricas de prueba del modelo elegido (accuracy, F1 macro,
+F1 ponderado, precision y recall macro, accuracy top-5) y su origen (notebook, prueba, fecha, épocas).
 ```
 
 ### 8.2 Componentes
@@ -231,6 +239,7 @@ validación/test del notebook (no los de *data augmentation*). Si no coinciden, 
 |---|---|
 | Configuración de página | `st.set_page_config(page_title=..., page_icon="🍩", layout="wide")` |
 | Título / subtítulo | `st.title`, `st.caption` |
+| Selector de modelo | `st.sidebar` + `st.selectbox` y `st.metric` para las métricas de prueba |
 | Aviso modo demo | `st.warning` |
 | Dos columnas | `st.columns(2)` dentro de `st.container(border=True)` |
 | Subir imagen | `st.file_uploader(type=ALLOWED_TYPES)` |
@@ -259,11 +268,13 @@ validación/test del notebook (no los de *data augmentation*). Si no coinciden, 
 | Caso | Mensaje / acción |
 |---|---|
 | Archivo no es imagen válida o está corrupto | `st.error("No se pudo leer la imagen. Usa JPG, PNG o WEBP.")` |
-| No existe `model.pt` | Modo demo + `st.warning` permanente arriba |
-| `model.pt` es un `state_dict` | `st.error` explicando que se requiere modelo completo / TorchScript |
+| No hay modelos en `models/` | Modo demo + `st.warning` permanente arriba |
+| Carpeta de modelo incompleta o `modelo.json` inválido | Aviso en la barra lateral; el resto de los modelos sigue disponible |
+| `model.pt` de tipo `torch` es un `state_dict` | `st.error` explicando que se requiere modelo completo / TorchScript |
+| Modelo `ultralytics` sin el paquete instalado | `st.error` con `pip install ultralytics` |
 | Error al cargar el modelo (otro) | `st.error` con el detalle; la app no se cae |
 | `classes.json` no coincide con la salida del modelo | `st.error("El modelo tiene N salidas pero classes.json tiene M clases.")` |
-| Falta `classes.json` | `st.error` indicando la ruta esperada |
+| Falta `classes.json` | Aviso en la barra lateral (modelo omitido) |
 
 ---
 
@@ -273,6 +284,7 @@ validación/test del notebook (no los de *data augmentation*). Si no coinciden, 
 streamlit>=1.50
 torch
 torchvision
+ultralytics
 pillow
 numpy
 ```
@@ -287,25 +299,26 @@ streamlit run app.py
 ```
 Abrir `http://localhost:8501`.
 
-Para usar el modelo real: copiar el `.pt` a `app/models/model.pt`, reemplazar `classes.json`
-por el generado en el notebook, revisar `IMG_SIZE`/normalización en `config.py` y reiniciar la app.
+Para agregar un modelo real: crear su carpeta en `app/models/<id>/` (para YOLO: `python exportar_modelo.py testN`
+desde `DeepLearningModelos/`) y recargar la página.
 
 ---
 
 ## 12. Criterios de aceptación
 
-- [ ] `streamlit run app.py` levanta la página sin errores, **sin** `model.pt` (modo demo visible).
+- [ ] `streamlit run app.py` levanta la página sin errores, **sin** modelos (modo demo visible).
 - [ ] Se puede subir JPG, PNG (incluido con transparencia) y WEBP; se ve la vista previa.
 - [ ] Al presionar **Clasificar** se muestra "Es <personaje>", la confianza y el Top-3.
 - [ ] Con confianza < umbral se muestra el aviso de incertidumbre.
 - [ ] **Limpiar** deja la página en su estado inicial.
 - [ ] Un archivo no válido muestra un error y la app sigue funcionando.
-- [ ] Al poner un `model.pt` real (TorchScript o modelo completo), la app lo usa sin tocar el código.
+- [ ] Al agregar una carpeta de modelo (YOLO o PyTorch) en `models/`, aparece en el selector sin tocar el código.
+- [ ] Al cambiar de modelo en el selector, se muestran sus métricas y se borra el resultado anterior.
 - [ ] Interfaz completamente en español, ordenada en dos columnas.
 
 ## 13. Fuera de alcance (por ahora)
 
-- Entrenamiento, comparación de modelos y generación del `.pt` (notebook).
+- Entrenamiento y generación del `.pt` (notebook). La app solo muestra las métricas de prueba que trae cada `modelo.json`.
 - Webcam, carga por URL, múltiples imágenes a la vez.
 - Despliegue en la nube / autenticación.
 - Git / GitHub: no se hace commit ni push sin autorización explícita.
@@ -313,5 +326,5 @@ por el generado en el notebook, revisar `IMG_SIZE`/normalización en `config.py`
 ## 14. Pendientes por confirmar
 
 1. ~~Clases reales del dataset~~ → confirmadas (42).
-2. `IMG_SIZE` y normalización finales usados en el entrenamiento → actualizar `config.py`.
-3. Formato definitivo del `.pt` (modelo completo recomendado) y versión de Python donde se entrenará.
+2. ~~`IMG_SIZE` y normalización finales~~ → van en el `modelo.json` de cada modelo.
+3. ~~Formato definitivo del `.pt`~~ → `ultralytics` (YOLO) o `torch` (modelo completo); entrenamiento en Python 3.14.
