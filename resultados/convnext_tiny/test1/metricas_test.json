@@ -1,0 +1,11 @@
+{
+  "imagenes_test": 3028,
+  "accuracy": 0.9944,
+  "accuracy_top5": 0.9977,
+  "precision_macro": 0.9941,
+  "recall_macro": 0.9888,
+  "f1_macro": 0.9913,
+  "precision_ponderada": 0.9944,
+  "recall_ponderado": 0.9944,
+  "f1_ponderado": 0.9944
+}

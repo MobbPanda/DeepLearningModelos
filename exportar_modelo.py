@@ -1,18 +1,20 @@
-"""Exporta una prueba de entrenamiento (YOLO11 o ResNet-50) a la aplicación web.
+"""Exporta una prueba de entrenamiento (YOLO11, ResNet-50 o ConvNeXt-Tiny) a la aplicación web.
 
 Copia el mejor peso de resultados/<modelo>/testN/ a app/models/<arquitectura>_testN/ junto con
 el orden de clases y modelo.json (tipo de modelo, preprocesamiento y métricas de prueba).
 La aplicación web lista en su selector todas las carpetas de app/models/ con ese formato.
 
 - YOLO11 (yolo11.ipynb): el best.pt de Ultralytics se copia tal cual ("tipo": "ultralytics").
-- ResNet-50 (resnet50.ipynb): el modelo completo se guarda en media precisión ("tipo": "torch"),
-  para que model.pt pese la mitad (~47 MB). La aplicación lo vuelve a float32 al cargarlo.
+- ResNet-50 (resnet50.ipynb) y ConvNeXt-Tiny (convnextTiny.ipynb): el modelo completo se guarda en
+  media precisión ("tipo": "torch"), para que model.pt pese la mitad (~47 y ~56 MB). La aplicación
+  lo vuelve a float32 al cargarlo.
 
 El tipo se decide por el "modelo_base" de configuracion.json: si termina en ".pt" es YOLO.
 
 Uso, desde la carpeta DeepLearningModelos/ (el modelo es opcional; por defecto, yolo11):
     python exportar_modelo.py test3                       -> resultados/yolo11/test3
     python exportar_modelo.py resnet50 test1              -> resultados/resnet50/test1
+    python exportar_modelo.py convnext_tiny test1         -> resultados/convnext_tiny/test1
     python exportar_modelo.py resultados/resnet50/test1   (una ruta también sirve)
 
 Si la carpeta de destino ya existe, se reemplaza su contenido (por ejemplo, tras reevaluar la prueba).
@@ -169,10 +171,10 @@ def resolver_prueba(argumentos):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Exporta una prueba de YOLO11 o ResNet-50 a la aplicación web (app/models/)."
+        description="Exporta una prueba de YOLO11, ResNet-50 o ConvNeXt-Tiny a la aplicación web (app/models/)."
     )
     parser.add_argument(
-        "modelo", nargs="?", help=f'carpeta de resultados/ ("yolo11" o "resnet50"; por defecto, {MODELO_POR_DEFECTO})'
+        "modelo", nargs="?", help=f'carpeta de resultados/ ("yolo11", "resnet50" o "convnext_tiny"; por defecto, {MODELO_POR_DEFECTO})'
     )
     parser.add_argument("prueba", help='nombre de la prueba ("test3") o ruta a su carpeta')
     args = parser.parse_args()

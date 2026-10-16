@@ -1,0 +1,78 @@
+{
+  "prueba": "test1",
+  "notebook": "convnextTiny.ipynb",
+  "modelo_base": "convnext_tiny",
+  "nombre_modelo": "ConvNeXt-Tiny",
+  "pesos_preentrenados": "IMAGENET1K_V1",
+  "datos": {
+    "dataset_dividido": "dataset/simpsons_split",
+    "clases": 25,
+    "imagenes": {
+      "train": 14128,
+      "val": 3028,
+      "test": 3028
+    }
+  },
+  "preprocesamiento": {
+    "imgsz": 224,
+    "redimension": "recorte_central",
+    "normalizacion": {
+      "media": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "desviacion": [
+        0.229,
+        0.224,
+        0.225
+      ]
+    }
+  },
+  "hiperparametros": {
+    "imgsz": 224,
+    "epochs": 50,
+    "patience": 10,
+    "batch": 64,
+    "epocas_congeladas": 3,
+    "optimizer": "AdamW",
+    "lr_cabeza": 0.001,
+    "lr_backbone": 5e-05,
+    "lrf": 0.01,
+    "warmup_epochs": 1,
+    "weight_decay": 0.05,
+    "dropout": 0.2,
+    "stochastic_depth": 0.1,
+    "label_smoothing": 0.1,
+    "peso_clases": 0.0,
+    "amp": true,
+    "workers": 8,
+    "seed": 42,
+    "deterministic": true,
+    "fliplr": 0.5,
+    "scale": 0.5,
+    "rotacion": 0,
+    "auto_augment": "randaugment",
+    "erasing": 0.4
+  },
+  "evaluacion": {
+    "muestra_train_por_epoca": 1500,
+    "lote_inferencia": 128,
+    "repeticiones_latencia": 50
+  },
+  "entorno": {
+    "python": "3.14.4",
+    "sistema": "Linux-7.0.0-38-generic-x86_64-desconocido-with-glibc2.43",
+    "torch": "2.14.1+cu130",
+    "torchvision": "0.29.1+cu130",
+    "cuda": "13.0",
+    "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "vram_gb": 8.2,
+    "cpus": 20
+  },
+  "inicio": "2026-10-15T21:16:21",
+  "fin": "2026-10-15T22:06:11",
+  "duracion_min": 49.8,
+  "epocas_ejecutadas": 50,
+  "mejor_epoca_val_top1": 43
+}

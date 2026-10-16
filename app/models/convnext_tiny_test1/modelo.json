@@ -1,0 +1,38 @@
+{
+  "nombre": "ConvNeXt-Tiny · test1",
+  "tipo": "torch",
+  "imgsz": 224,
+  "redimension": "recorte_central",
+  "normalizacion": {
+    "media": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "desviacion": [
+      0.229,
+      0.224,
+      0.225
+    ]
+  },
+  "salida": "logits",
+  "metricas_test": {
+    "imagenes_test": 3028,
+    "accuracy": 0.9944,
+    "accuracy_top5": 0.9977,
+    "precision_macro": 0.9941,
+    "recall_macro": 0.9888,
+    "f1_macro": 0.9913,
+    "precision_ponderada": 0.9944,
+    "recall_ponderado": 0.9944,
+    "f1_ponderado": 0.9944
+  },
+  "origen": {
+    "notebook": "convnextTiny.ipynb",
+    "prueba": "test1",
+    "entrenado": "2026-10-15T21:16:21",
+    "epocas": "50/50",
+    "clases": 25,
+    "pesos_preentrenados": "IMAGENET1K_V1"
+  }
+}

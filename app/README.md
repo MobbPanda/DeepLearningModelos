@@ -57,12 +57,14 @@ models/
 Desde `DeepLearningModelos/`:
 
 ```bash
-python exportar_modelo.py test3            # YOLO11
-python exportar_modelo.py resnet50 test1   # ResNet-50
+python exportar_modelo.py test3                 # YOLO11
+python exportar_modelo.py resnet50 test1        # ResNet-50
+python exportar_modelo.py convnext_tiny test1   # ConvNeXt-Tiny
 ```
 
 - **YOLO11:** copia `resultados/yolo11/test3/weights/best.pt` a `models/yolo11m-cls_test3/` junto con sus clases y métricas (`"tipo": "ultralytics"`).
 - **ResNet-50:** guarda el modelo completo de `resultados/resnet50/test1/weights/best.pt` en `models/resnet50_test1/` con `"tipo": "torch"`, en media precisión (~47 MB en vez de ~94 MB). Su `modelo.json` incluye el recorte central y la normalización de ImageNet, y la app lo vuelve a float32 al cargarlo.
+- **ConvNeXt-Tiny:** igual que ResNet-50: guarda el modelo completo de `resultados/convnext_tiny/test1/weights/best.pt` en `models/convnext_tiny_test1/` con `"tipo": "torch"`, en media precisión (~56 MB en vez de ~111 MB), con el mismo recorte central y normalización de ImageNet.
 
 Los notebooks hacen lo mismo con `EXPORTAR_A_APP = True`.
 

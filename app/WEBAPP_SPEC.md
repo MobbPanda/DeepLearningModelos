@@ -97,6 +97,8 @@ La página asume lo siguiente. **Si el entrenamiento cambia algo, se ajusta solo
     (si se define dentro del notebook, queda como `__main__` y la app no la encuentra).
   - **ResNet-50 (`resnet50.ipynb`):** se exporta con `python exportar_modelo.py resnet50 testN`, que crea
     `app/models/resnet50_testN/` con el modelo en media precisión (~47 MB); la app lo convierte a float32 al cargarlo.
+  - **ConvNeXt-Tiny (`convnextTiny.ipynb`):** se exporta con `python exportar_modelo.py convnext_tiny testN`, que crea
+    `app/models/convnext_tiny_testN/` (`"tipo": "torch"`, media precisión, ~56 MB), igual que ResNet-50.
   - Alternativa: TorchScript (`torch.jit.script(model).save("model.pt")`), pero ⚠️ **PyTorch no soporta
     TorchScript en Python 3.14+**. Orden de carga: primero `torch.load`, luego `torch.jit.load`.
 

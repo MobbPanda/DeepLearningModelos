@@ -1,0 +1,50 @@
+2026-10-15T21:16:50 Época  1/50 [solo cabeza] loss train 2.7258 | acc train 0.6180 | loss val 1.8466 | acc val 0.5974 | top-5 val 0.8544 | 28 s *
+2026-10-15T21:17:18 Época  2/50 [solo cabeza] loss train 1.8751 | acc train 0.7393 | loss val 1.2350 | acc val 0.7160 | top-5 val 0.9270 | 27 s *
+2026-10-15T21:17:45 Época  3/50 [solo cabeza] loss train 1.6337 | acc train 0.8000 | loss val 1.0313 | acc val 0.7810 | top-5 val 0.9445 | 27 s *
+2026-10-15T21:18:48 Época  4/50 [red completa] loss train 1.1262 | acc train 0.9753 | loss val 0.2188 | acc val 0.9683 | top-5 val 0.9947 | 63 s *
+2026-10-15T21:19:50 Época  5/50 [red completa] loss train 0.9059 | acc train 0.9900 | loss val 0.1819 | acc val 0.9795 | top-5 val 0.9974 | 62 s *
+2026-10-15T21:20:51 Época  6/50 [red completa] loss train 0.8342 | acc train 0.9933 | loss val 0.1597 | acc val 0.9832 | top-5 val 0.9970 | 62 s *
+2026-10-15T21:21:53 Época  7/50 [red completa] loss train 0.7907 | acc train 0.9940 | loss val 0.1481 | acc val 0.9861 | top-5 val 0.9970 | 62 s *
+2026-10-15T21:22:55 Época  8/50 [red completa] loss train 0.7665 | acc train 0.9967 | loss val 0.1311 | acc val 0.9881 | top-5 val 0.9970 | 61 s *
+2026-10-15T21:23:57 Época  9/50 [red completa] loss train 0.7498 | acc train 0.9973 | loss val 0.1330 | acc val 0.9871 | top-5 val 0.9967 | 62 s
+2026-10-15T21:24:58 Época 10/50 [red completa] loss train 0.7339 | acc train 0.9987 | loss val 0.1296 | acc val 0.9891 | top-5 val 0.9977 | 61 s *
+2026-10-15T21:26:00 Época 11/50 [red completa] loss train 0.7232 | acc train 0.9987 | loss val 0.1364 | acc val 0.9871 | top-5 val 0.9974 | 61 s
+2026-10-15T21:27:02 Época 12/50 [red completa] loss train 0.7126 | acc train 0.9993 | loss val 0.1326 | acc val 0.9891 | top-5 val 0.9967 | 62 s
+2026-10-15T21:28:03 Época 13/50 [red completa] loss train 0.7057 | acc train 0.9980 | loss val 0.1315 | acc val 0.9891 | top-5 val 0.9980 | 62 s
+2026-10-15T21:29:05 Época 14/50 [red completa] loss train 0.7019 | acc train 0.9993 | loss val 0.1299 | acc val 0.9888 | top-5 val 0.9977 | 61 s
+2026-10-15T21:30:06 Época 15/50 [red completa] loss train 0.6942 | acc train 0.9993 | loss val 0.1275 | acc val 0.9904 | top-5 val 0.9974 | 62 s *
+2026-10-15T21:31:08 Época 16/50 [red completa] loss train 0.6907 | acc train 0.9987 | loss val 0.1274 | acc val 0.9894 | top-5 val 0.9983 | 62 s
+2026-10-15T21:32:09 Época 17/50 [red completa] loss train 0.6877 | acc train 0.9993 | loss val 0.1220 | acc val 0.9898 | top-5 val 0.9987 | 61 s
+2026-10-15T21:33:12 Época 18/50 [red completa] loss train 0.6814 | acc train 0.9993 | loss val 0.1274 | acc val 0.9894 | top-5 val 0.9980 | 62 s
+2026-10-15T21:34:14 Época 19/50 [red completa] loss train 0.6812 | acc train 0.9993 | loss val 0.1208 | acc val 0.9904 | top-5 val 0.9983 | 62 s *
+2026-10-15T21:35:15 Época 20/50 [red completa] loss train 0.6815 | acc train 0.9993 | loss val 0.1217 | acc val 0.9898 | top-5 val 0.9980 | 62 s
+2026-10-15T21:36:18 Época 21/50 [red completa] loss train 0.6771 | acc train 0.9993 | loss val 0.1244 | acc val 0.9901 | top-5 val 0.9980 | 62 s
+2026-10-15T21:37:19 Época 22/50 [red completa] loss train 0.6726 | acc train 0.9993 | loss val 0.1222 | acc val 0.9914 | top-5 val 0.9983 | 61 s *
+2026-10-15T21:38:21 Época 23/50 [red completa] loss train 0.6695 | acc train 0.9993 | loss val 0.1179 | acc val 0.9904 | top-5 val 0.9987 | 62 s
+2026-10-15T21:39:23 Época 24/50 [red completa] loss train 0.6675 | acc train 0.9993 | loss val 0.1196 | acc val 0.9904 | top-5 val 0.9983 | 62 s
+2026-10-15T21:40:24 Época 25/50 [red completa] loss train 0.6708 | acc train 0.9993 | loss val 0.1197 | acc val 0.9908 | top-5 val 0.9983 | 61 s
+2026-10-15T21:41:26 Época 26/50 [red completa] loss train 0.6668 | acc train 0.9993 | loss val 0.1207 | acc val 0.9901 | top-5 val 0.9977 | 62 s
+2026-10-15T21:42:28 Época 27/50 [red completa] loss train 0.6639 | acc train 0.9993 | loss val 0.1222 | acc val 0.9904 | top-5 val 0.9983 | 62 s
+2026-10-15T21:43:29 Época 28/50 [red completa] loss train 0.6631 | acc train 0.9993 | loss val 0.1210 | acc val 0.9914 | top-5 val 0.9983 | 61 s *
+2026-10-15T21:44:32 Época 29/50 [red completa] loss train 0.6627 | acc train 0.9993 | loss val 0.1195 | acc val 0.9908 | top-5 val 0.9980 | 62 s
+2026-10-15T21:45:33 Época 30/50 [red completa] loss train 0.6610 | acc train 0.9993 | loss val 0.1191 | acc val 0.9908 | top-5 val 0.9983 | 62 s
+2026-10-15T21:46:36 Época 31/50 [red completa] loss train 0.6611 | acc train 0.9993 | loss val 0.1192 | acc val 0.9917 | top-5 val 0.9980 | 62 s *
+2026-10-15T21:47:38 Época 32/50 [red completa] loss train 0.6567 | acc train 0.9993 | loss val 0.1190 | acc val 0.9917 | top-5 val 0.9980 | 62 s *
+2026-10-15T21:48:39 Época 33/50 [red completa] loss train 0.6599 | acc train 0.9993 | loss val 0.1187 | acc val 0.9924 | top-5 val 0.9983 | 62 s *
+2026-10-15T21:49:41 Época 34/50 [red completa] loss train 0.6590 | acc train 0.9993 | loss val 0.1179 | acc val 0.9924 | top-5 val 0.9983 | 62 s *
+2026-10-15T21:50:43 Época 35/50 [red completa] loss train 0.6588 | acc train 0.9993 | loss val 0.1200 | acc val 0.9921 | top-5 val 0.9987 | 62 s
+2026-10-15T21:51:45 Época 36/50 [red completa] loss train 0.6581 | acc train 0.9993 | loss val 0.1198 | acc val 0.9921 | top-5 val 0.9987 | 62 s
+2026-10-15T21:52:47 Época 37/50 [red completa] loss train 0.6570 | acc train 0.9993 | loss val 0.1187 | acc val 0.9921 | top-5 val 0.9983 | 62 s
+2026-10-15T21:53:49 Época 38/50 [red completa] loss train 0.6551 | acc train 0.9993 | loss val 0.1175 | acc val 0.9924 | top-5 val 0.9983 | 61 s *
+2026-10-15T21:54:51 Época 39/50 [red completa] loss train 0.6576 | acc train 0.9993 | loss val 0.1183 | acc val 0.9921 | top-5 val 0.9983 | 62 s
+2026-10-15T21:55:53 Época 40/50 [red completa] loss train 0.6557 | acc train 0.9993 | loss val 0.1181 | acc val 0.9927 | top-5 val 0.9980 | 62 s *
+2026-10-15T21:56:54 Época 41/50 [red completa] loss train 0.6522 | acc train 0.9993 | loss val 0.1170 | acc val 0.9927 | top-5 val 0.9980 | 62 s *
+2026-10-15T21:57:56 Época 42/50 [red completa] loss train 0.6540 | acc train 0.9993 | loss val 0.1163 | acc val 0.9927 | top-5 val 0.9983 | 62 s *
+2026-10-15T21:58:58 Época 43/50 [red completa] loss train 0.6500 | acc train 0.9993 | loss val 0.1162 | acc val 0.9927 | top-5 val 0.9987 | 62 s *
+2026-10-15T22:00:00 Época 44/50 [red completa] loss train 0.6508 | acc train 0.9993 | loss val 0.1179 | acc val 0.9921 | top-5 val 0.9983 | 61 s
+2026-10-15T22:01:02 Época 45/50 [red completa] loss train 0.6570 | acc train 0.9993 | loss val 0.1175 | acc val 0.9924 | top-5 val 0.9983 | 62 s
+2026-10-15T22:02:03 Época 46/50 [red completa] loss train 0.6533 | acc train 0.9993 | loss val 0.1168 | acc val 0.9924 | top-5 val 0.9987 | 62 s
+2026-10-15T22:03:06 Época 47/50 [red completa] loss train 0.6535 | acc train 0.9993 | loss val 0.1173 | acc val 0.9924 | top-5 val 0.9983 | 62 s
+2026-10-15T22:04:07 Época 48/50 [red completa] loss train 0.6526 | acc train 0.9993 | loss val 0.1173 | acc val 0.9924 | top-5 val 0.9983 | 62 s
+2026-10-15T22:05:09 Época 49/50 [red completa] loss train 0.6533 | acc train 0.9993 | loss val 0.1171 | acc val 0.9924 | top-5 val 0.9983 | 62 s
+2026-10-15T22:06:11 Época 50/50 [red completa] loss train 0.6532 | acc train 0.9993 | loss val 0.1169 | acc val 0.9924 | top-5 val 0.9983 | 62 s
